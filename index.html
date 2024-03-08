@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo App</title>
+    <link rel="stylesheet" href="./assets/scss/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+</head>
+<body>
+    <main class="todo-app">
+        <section class="hero">
+            <div class="container">
+                <div class="hero__inner">
+                    <div class="app-container">
+                        <div class="app-description">
+                            <h5 class="description_h5">Todo list page</h5>
+                        </div>
+
+                        <div class="app-create">
+                            <form action="#" class="app-create_form">
+                                <label for="todoName">
+                                    <input type="text" name="tododName" class="todoName_input" placeholder="Enter Todo">
+                                </label>
+
+                                <button class="submit_btn_create">Create Todo</button>
+                            </form>
+                            <hr>
+                        </div>
+
+                        <hr class="margin-0">
+
+                        <div class="app-lists">
+                            <h5 class="lists_h5">Todo lists</h5>
+
+                            <form action="#" class="search_form">
+                                <input type="text" class="search_input" placeholder="Search your Todos">
+                                <hr>
+                            </form>
+
+                            <ul class="todo-ul">
+                                <!-- <li class="todo-list">
+                                    <span class="todo-span">Salam</span>
+                                    <a href="#">
+                                        <i class="bi bi-x-lg"></i>
+                                    </a>
+                                </li> -->
+                            </ul>
+
+                            <a href="#" class="remove_lists">
+                                Remove all todos
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="./assets/js/app.js"></script>
+</body>
+</html>

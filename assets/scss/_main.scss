@@ -1,0 +1,127 @@
+.app-container {
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+.hero__inner {
+    padding-top: 2rem;
+}
+
+.app-description {
+    padding: 1rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+}
+
+.description_h5 {
+    font-size: 1rem;
+    font-weight: normal;
+}
+
+.app-create {
+    width: 100%;
+    padding: 1rem;
+}
+
+.app-create_form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 1rem;
+
+    > label {
+        width: 100%;
+
+        > input {
+            width: 100%;
+            padding: 0.375rem 0.75rem;
+            border: 1px solid #ced4da;
+            outline: none;
+            font-family: "Poppins", sans-serif;
+            border-radius: 0.2rem;
+        }
+    }
+
+    > button {
+        font-family: "Poppins", sans-serif;
+        font-weight: 300;
+        background-color: #007bff;
+        border: 1px solid #007bff;
+        padding: 0.25rem 0.5rem;
+        color: #fff;
+        border-radius: 0.2rem;
+    }
+}
+
+hr {
+    margin: 1rem 0rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.125);
+}
+
+.margin-0 {
+    margin: 0;
+}
+
+.app-lists {
+    padding: 1rem;
+}
+
+.lists_h5 {
+    font-weight: 400;
+    font-size: 1rem;
+}
+
+.search_form {
+    margin-top: 1rem;
+    width: 100%;
+    > input {
+        width: 100%;
+        padding: 0.375rem 0.75rem;
+        border: 1px solid #ced4da;
+        outline: none;
+        font-family: "Poppins", sans-serif;
+        border-radius: 0.2rem;
+    }
+}
+
+.todo-ul {
+    width: 100%;
+    margin-bottom: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: .7rem;
+}
+
+.todo-list {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0.75rem 1.25rem;
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    border-radius: 0.2rem;
+    font-family: "Poppins", sans-serif;
+
+    > a {
+        color: #007bff;
+    }
+
+    > span {
+        font-weight: 400;
+        font-size: .9rem;
+    }
+}
+
+.remove_lists {
+    padding: 0.25rem 0.5rem;
+    font-family: "Poppins", sans-serif;
+    font-weight: 300;
+    background-color: #007bff;
+    border: 1px solid #007bff;
+    color: #fff;
+    text-decoration: none;
+    font-size: .875rem;
+    border-radius: .2rem;
+}
