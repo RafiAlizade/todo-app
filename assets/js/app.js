@@ -45,13 +45,13 @@ createTodo.addEventListener('click', function (e) {
 todoUl.addEventListener('click', function (e) {
     var target = e.target;
     var todoItem = target.closest('.todo-list');
-    if (todoItem) {
+    var todoDeleteInput = target.closest('.remove_todo_btn');
+    if (todoDeleteInput) {
         var todoName_1 = todoItem.querySelector('.todo-span').textContent;
         todoItem.remove();
         todoArray = todoArray.filter(function (todo) { return todo.todoName !== todoName_1; });
         localStorage.setItem('todo', JSON.stringify(todoArray));
         showAlert('success', "You have successfully deleted todos");
-        console.log(checkLocalStorage());
     }
 });
 removeallTodos.addEventListener('click', function () {

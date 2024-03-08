@@ -80,8 +80,9 @@ createTodo.addEventListener('click', function (e) {
 todoUl.addEventListener('click', function (e) {
     const target = e.target as HTMLElement;
     const todoItem = target.closest('.todo-list');
+    const todoDeleteInput = target.closest('.remove_todo_btn');
 
-    if (todoItem) {
+    if (todoDeleteInput) {
         const todoName = todoItem.querySelector('.todo-span').textContent;
         todoItem.remove();
 
@@ -89,8 +90,6 @@ todoUl.addEventListener('click', function (e) {
          localStorage.setItem('todo', JSON.stringify(todoArray));
 
         showAlert('success', `You have successfully deleted todos`)
-
-        console.log(checkLocalStorage());
     }
 });
 
