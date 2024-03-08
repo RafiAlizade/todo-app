@@ -13,35 +13,42 @@ function addNewTodo() {
     let todoName = todonameInput.value;
 
     const HTMLCode = `
-    <li class="todo-list">
+    <li class="todo-list" id='${todoName.trim()}'>
     <span class="todo-span">${todoName}</span>
     <a href="#" class="remove_todo_btn">
     <i class="bi bi-x-lg"></i>
     </a>
      </li>`
 
-     todoUl.insertAdjacentHTML('beforeend', HTMLCode)
+    todoUl.insertAdjacentHTML('beforeend', HTMLCode)
 
-     addStorage(todoName, true)
+    addStorage(todoName)
 };
 
-function addStorage(todoText:string, status:boolean) {
+function addStorage(todoText: string) {
     todoArray.push(
         {
-        todoName : todoText,
-        todoStatus : status
-    }
+            todoName: todoText
+        }
     )
 
     localStorage.setItem('todo', JSON.stringify(todoArray))
 };
+
+function checkLocalStorage() {
+    let todos = JSON.parse(localStorage.getItem('todo') || '[]');
+
+    todoArray = todos;
+
+    return todoArray
+}
 
 function loadStorage() {
     let todos = JSON.parse(localStorage.getItem('todo') || '[]');
 
     todoArray = todos;
 
-    if(todoArray.length > 0) {
+    if (todoArray.length > 0) {
         todoArray.forEach(allTodos => {
             const HTMLCode = `
         <li class="todo-list">
@@ -50,35 +57,44 @@ function loadStorage() {
         <i class="bi bi-x-lg"></i>
         </a>
          </li>`
-    
-         todoUl.insertAdjacentHTML('beforeend', HTMLCode)
+
+            todoUl.insertAdjacentHTML('beforeend', HTMLCode)
         })
     }
 };
 
 loadStorage();
 
-createTodo.addEventListener('click', function(e) {
+createTodo.addEventListener('click', function (e) {
     e.preventDefault();
 
-    if(todonameInput.value.length > 0) {
+    if (todonameInput.value.length > 0) {
         addNewTodo();
+        todonameInput.value = '';
+        showAlert('success', `You have successfully added a new todo!`);
     } else {
         alert('Please enter todo name!')
     }
 });
 
-todoUl.addEventListener('click', function(e) {
+todoUl.addEventListener('click', function (e) {
     const target = e.target as HTMLElement;
+    const todoItem = target.closest('.todo-list');
 
-    if (target.closest('.remove_todo_btn')) {
-        target.closest('.todo-list')?.remove();
+    if (todoItem) {
+        const todoName = todoItem.querySelector('.todo-span').textContent;
+        todoItem.remove();
+
+         todoArray = todoArray.filter(todo => todo.todoName !== todoName);
+         localStorage.setItem('todo', JSON.stringify(todoArray));
 
         showAlert('success', `You have successfully deleted todos`)
+
+        console.log(checkLocalStorage());
     }
 });
 
-removeallTodos.addEventListener('click', function() {
+removeallTodos.addEventListener('click', function () {
     let todos = JSON.parse(localStorage.getItem('todo') || '[]');
 
     todoArray = todos;
@@ -86,18 +102,24 @@ removeallTodos.addEventListener('click', function() {
     if (todoArray.length == 0) {
         showAlert('danger', `You say to delete all todos now, but we didn't find any todos.`);
     } else {
-        showAlert('success', `All todos deleted successfully`)
+        localStorage.clear();
+        showAlert('success', `All todos deleted successfully`);
+
+        setInterval(() => {
+            location.reload();
+        }, 1000)
+
     }
 })
 
-function showAlert(type, message) {
+function showAlert(type: string, message: string) {
     const div = document.createElement("div");
     div.className = `alert alert-${type}`; //litirel template
     div.textContent = message;
 
     appCreate.appendChild(div);
 
-    setTimeout(function(){
+    setTimeout(function () {
         div.remove();
-    },2500);
+    }, 2500);
 }

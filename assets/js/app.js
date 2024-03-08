@@ -2,19 +2,23 @@ var todoUl = document.querySelector('.todo-ul'), createTodo = document.querySele
 var todoArray = [];
 function addNewTodo() {
     var todoName = todonameInput.value;
-    var HTMLCode = "\n    <li class=\"todo-list\">\n    <span class=\"todo-span\">".concat(todoName, "</span>\n    <a href=\"#\" class=\"remove_todo_btn\">\n    <i class=\"bi bi-x-lg\"></i>\n    </a>\n     </li>");
+    var HTMLCode = "\n    <li class=\"todo-list\" id='".concat(todoName.trim(), "'>\n    <span class=\"todo-span\">").concat(todoName, "</span>\n    <a href=\"#\" class=\"remove_todo_btn\">\n    <i class=\"bi bi-x-lg\"></i>\n    </a>\n     </li>");
     todoUl.insertAdjacentHTML('beforeend', HTMLCode);
-    addStorage(todoName, true);
+    addStorage(todoName);
 }
 ;
-function addStorage(todoText, status) {
+function addStorage(todoText) {
     todoArray.push({
-        todoName: todoText,
-        todoStatus: status
+        todoName: todoText
     });
     localStorage.setItem('todo', JSON.stringify(todoArray));
 }
 ;
+function checkLocalStorage() {
+    var todos = JSON.parse(localStorage.getItem('todo') || '[]');
+    todoArray = todos;
+    return todoArray;
+}
 function loadStorage() {
     var todos = JSON.parse(localStorage.getItem('todo') || '[]');
     todoArray = todos;
@@ -31,17 +35,23 @@ createTodo.addEventListener('click', function (e) {
     e.preventDefault();
     if (todonameInput.value.length > 0) {
         addNewTodo();
+        todonameInput.value = '';
+        showAlert('success', "You have successfully added a new todo!");
     }
     else {
         alert('Please enter todo name!');
     }
 });
 todoUl.addEventListener('click', function (e) {
-    var _a;
     var target = e.target;
-    if (target.closest('.remove_todo_btn')) {
-        (_a = target.closest('.todo-list')) === null || _a === void 0 ? void 0 : _a.remove();
+    var todoItem = target.closest('.todo-list');
+    if (todoItem) {
+        var todoName_1 = todoItem.querySelector('.todo-span').textContent;
+        todoItem.remove();
+        todoArray = todoArray.filter(function (todo) { return todo.todoName !== todoName_1; });
+        localStorage.setItem('todo', JSON.stringify(todoArray));
         showAlert('success', "You have successfully deleted todos");
+        console.log(checkLocalStorage());
     }
 });
 removeallTodos.addEventListener('click', function () {
@@ -51,7 +61,11 @@ removeallTodos.addEventListener('click', function () {
         showAlert('danger', "You say to delete all todos now, but we didn't find any todos.");
     }
     else {
+        localStorage.clear();
         showAlert('success', "All todos deleted successfully");
+        setInterval(function () {
+            location.reload();
+        }, 1000);
     }
 });
 function showAlert(type, message) {
